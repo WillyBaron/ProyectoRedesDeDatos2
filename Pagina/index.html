@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Plataforma Pyme Digital</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <style>
+    /* Cursor pointer y efectos para cards clickeables */
+    .card[role="button"] {
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.15s ease-in-out;
+    }
+    .card[role="button"]:hover,
+    .card[role="button"]:focus {
+      transform: scale(1.03);
+      box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+      outline: none;
+    }
+    #messages {
+      height: 200px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      padding: 0.5rem;
+      background: #f8f9fa;
+      border-radius: 0.25rem;
+    }
+  </style>
+</head>
+<body>
+
+<header class="bg-primary text-white text-center py-4 mb-5">
+  <h1>Plataforma Pyme Digital</h1>
+  <p class="mb-0 fs-5">Acelerando la transformación digital de Pymes</p>
+</header>
+
+<main class="container">
+
+  <div id="networkStatus" class="text-center fw-bold mb-2"></div>
+  <div id="ipAddress" class="text-center fw-bold mb-2"></div>
+  <div id="serverStatus" class="text-center fw-bold mb-4">Cargando estado del servidor...</div>
+
+  <!-- Módulos de Formación -->
+  <section class="mb-5">
+    <h2 class="text-primary border-bottom border-3 pb-2 mb-4">Módulos de Formación</h2>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      <div class="col">
+        <div class="card h-100" role="button" tabindex="0" onclick="showModal('Fundamentos', 'Introducción al comercio electrónico, ventajas, modelos de negocio y diagnóstico digital.')">
+          <div class="card-body">
+            <h3 class="card-title h5">Fundamentos</h3>
+            <p class="card-text">Introducción al comercio electrónico, ventajas, modelos de negocio y diagnóstico digital.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card h-100" role="button" tabindex="0" onclick="showModal('Herramientas E-commerce', 'Guías paso a paso para configurar y gestionar tiendas en Shopify y WooCommerce.')">
+          <div class="card-body">
+            <h3 class="card-title h5">Herramientas E-commerce</h3>
+            <p class="card-text">Guías paso a paso para configurar y gestionar tiendas en Shopify y WooCommerce.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card h-100" role="button" tabindex="0" onclick="showModal('Marketing Digital', 'Estrategias para redes sociales, email marketing y posicionamiento SEO.')">
+          <div class="card-body">
+            <h3 class="card-title h5">Marketing Digital</h3>
+            <p class="card-text">Estrategias para redes sociales, email marketing y posicionamiento SEO.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card h-100" role="button" tabindex="0" onclick="showModal('Logística', 'Optimización de la cadena de suministro y gestión de inventarios.')">
+          <div class="card-body">
+            <h3 class="card-title h5">Logística</h3>
+            <p class="card-text">Optimización de la cadena de suministro y gestión de inventarios.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card h-100" role="button" tabindex="0" onclick="showModal('Finanzas', 'Control financiero y métodos de pago digitales.')">
+          <div class="card-body">
+            <h3 class="card-title h5">Finanzas</h3>
+            <p class="card-text">Control financiero y métodos de pago digitales.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card h-100" role="button" tabindex="0" onclick="showModal('Atención al Cliente', 'Canales de comunicación y servicio al cliente en entornos digitales.')">
+          <div class="card-body">
+            <h3 class="card-title h5">Atención al Cliente</h3>
+            <p class="card-text">Canales de comunicación y servicio al cliente en entornos digitales.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mentoría y Talleres -->
+  <section class="mb-5">
+    <h2 class="text-primary border-bottom border-3 pb-2 mb-4">Mentoría y Talleres</h2>
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+      <div class="col">
+        <div class="card h-100">
+          <div class="card-body">
+            <h3 class="card-title h5">Talleres Presenciales/Virtuales</h3>
+            <p class="card-text">Workshops especializados con expertos para proyectos reales.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card h-100">
+          <div class="card-body">
+            <h3 class="card-title h5">Asesoría Personalizada</h3>
+            <p class="card-text">Conexión con estudiantes y consultores locales para acompañamiento técnico.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Formulario Solicitar Mentoría -->
+  <section class="mb-5">
+    <h2 class="text-primary border-bottom border-3 pb-2 mb-4">Solicita Mentoría</h2>
+    <form id="formMentor" method="post" class="mx-auto" style="max-width: 500px;">
+      <div class="mb-3">
+        <input name="name" type="text" placeholder="Nombre completo" required class="form-control" />
+      </div>
+      <div class="mb-3">
+        <input name="email" type="email" placeholder="Correo electrónico" required class="form-control" />
+      </div>
+      <div class="mb-3">
+        <textarea name="project" rows="3" placeholder="Describe tu proyecto..." required class="form-control"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Enviar Solicitud</button>
+    </form>
+  </section>
+
+  <!-- Chat Comunitario -->
+  <section class="mb-5">
+    <h2 class="text-primary border-bottom border-3 pb-2 mb-4">Chat Comunitario</h2>
+    <p>El chat se basa en WebSockets para comunicación bidireccional en tiempo real. Cada mensaje se envía al servidor y se retransmite a todos los participantes.</p>
+    <div id="chat" class="border rounded p-3 mx-auto" style="max-width:600px;">
+      <div id="messages"></div>
+      <div id="chatInput" class="d-flex gap-2 mt-2">
+        <input id="msg" class="form-control" placeholder="Escribe un mensaje..." />
+        <button id="sendBtn" class="btn btn-primary">Enviar</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Herramientas Tecnológicas -->
+  <section class="mb-5">
+    <h2 class="text-primary border-bottom border-3 pb-2 mb-4">Herramientas Tecnológicas</h2>
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3">
+      <div class="col">
+        <div class="card h-100 text-center p-3" role="button" tabindex="0" onclick="window.open('https://www.shopify.com/', '_blank')">Shopify</div>
+      </div>
+      <div class="col">
+        <div class="card h-100 text-center p-3" role="button" tabindex="0" onclick="window.open('https://woocommerce.com/', '_blank')">WooCommerce</div>
+      </div>
+      <div class="col">
+        <div class="card h-100 text-center p-3" role="button" tabindex="0" onclick="window.open('https://www.whatsapp.com/business/api', '_blank')">WhatsApp Business API</div>
+      </div>
+      <div class="col">
+        <div class="card h-100 text-center p-3" role="button" tabindex="0" onclick="window.open('https://business.facebook.com/', '_blank')">Meta Business Suite</div>
+      </div>
+      <div class="col">
+        <div class="card h-100 text-center p-3" role="button" tabindex="0" onclick="window.open('https://business.google.com/', '_blank')">Google Business Profile</div>
+      </div>
+      <div class="col">
+        <div class="card h-100 text-center p-3" role="button" tabindex="0" onclick="window.open('https://mailchimp.com/', '_blank')">Mailchimp</div>
+      </div>
+      <div class="col">
+        <div class="card h-100 text-center p-3" role="button" tabindex="0" onclick="window.open('https://www.canva.com/', '_blank')">Canva</div>
+      </div>
+      <div class="col">
+        <div class="card h-100 text-center p-3" role="button" tabindex="0" onclick="window.open('https://www.wompi.co/', '_blank')">Wompi</div>
+      </div>
+      <div class="col">
+        <div class="card h-100 text-center p-3" role="button" tabindex="0" onclick="window.open('https://boldcommerce.com/', '_blank')">Bold</div>
+      </div>
+      <div class="col">
+        <div class="card h-100 text-center p-3" role="button" tabindex="0" onclick="window.open('https://www.mercadopago.com/', '_blank')">Mercado Pago</div>
+      </div>
+      <div class="col">
+        <div class="card h-100 text-center p-3" role="button" tabindex="0" onclick="window.open('https://workspace.google.com/', '_blank')">Google Workspace</div>
+      </div>
+      <div class="col">
+        <div class="card h-100 text-center p-3" role="button" tabindex="0" onclick="window.open('https://trello.com/', '_blank')">Trello</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Modal -->
+<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitle"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // Modal bootstrap
+  const modal = new bootstrap.Modal(document.getElementById('modal'));
+  function showModal(title, body) {
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalBody').textContent = body;
+    modal.show();
+  }
+
+  // Simulación estados red e IP
+  document.getElementById('networkStatus').textContent = 'Estado de la red: Conectado';
+  document.getElementById('ipAddress').textContent = 'Dirección IP: 192.168.1.10';
+  document.getElementById('serverStatus').textContent = 'Servidor: En línea';
+
+  // Chat básico simulado con array (no WebSocket real)
+  const messages = document.getElementById('messages');
+  const inputMsg = document.getElementById('msg');
+  const sendBtn = document.getElementById('sendBtn');
+
+  function appendMessage(text, from = 'Usuario') {
+    const msgDiv = document.createElement('div');
+    msgDiv.classList.add('mb-1');
+    msgDiv.textContent = `${from}: ${text}`;
+    messages.appendChild(msgDiv);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  sendBtn.addEventListener('click', () => {
+    const msg = inputMsg.value.trim();
+    if (!msg) return;
+    appendMessage(msg, 'Tú');
+    inputMsg.value = '';
+    // Simula respuesta automática
+    setTimeout(() => {
+      appendMessage('Gracias por tu mensaje, un mentor te responderá pronto.', 'Mentor');
+    }, 1000);
+  });
+
+  inputMsg.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      sendBtn.click();
+      e.preventDefault();
+    }
+  });
+
+  // Formulario - Aquí podrías agregar la lógica para enviar datos realmente
+  document.getElementById('formMentor').addEventListener('submit', e => {
+    e.preventDefault();
+    alert('Solicitud de mentoría enviada. Nos pondremos en contacto contigo.');
+    e.target.reset();
+  });
+</script>
+
+</body>
+</html>

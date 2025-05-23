@@ -1,0 +1,14 @@
+Estos comandos son necesarios para hacer funcionar la pagina(se ejecutan en ese orden):
+npm init -y
+
+npm install express ws body-parser cors
+
+npm install cors
+
+npm install express ws body-parser
+
+node server.js
+
+
+luego abrir en el navegador: http://localhost:3000
+
